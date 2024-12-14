@@ -15,7 +15,6 @@
 <body>
 <div class="container mt-5">
     <div class="row">
-        <!-- Coluna com o jogo -->
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
@@ -23,39 +22,27 @@
                     <p>Dica: <span th:text="${palavra.dica}"></span></p>
                 </div>
                 <div class="card-body">
-                    <!-- Espaços para a palavra -->
                     <div id="palavraContainer" class="text-center mb-4">
-                        <!-- Espaços para letras serão gerados dinamicamente -->
                     </div>
-
-                    <!-- Campo para digitar a letra -->
                     <div class="text-center">
                         <input type="text" maxlength="1" class="form-control letra-input d-inline" id="letraInput">
                         <button class="btn btn-primary" onclick="verificarLetra()">Enviar Letra</button>
                     </div>
 
-                    <!-- Status e imagens da Forca -->
                     <div id="mensagemStatus" class="mt-3 text-center"></div>
 
-                    <!-- Exibição da imagem da Forca -->
                     <div id="imagemForca" class="text-center mt-4">
-                        <!-- Imagens do boneco da forca serão trocadas aqui -->
                     </div>
 
-                    <!-- Pontuação -->
                     <div class="text-center mt-3">
                         <h4>Pontuação: <span id="pontuacao">0</span></h4>
                     </div>
-
-                    <!-- Exibição de tentativas restantes -->
                     <div class="text-center mt-3">
                         <h4>Tentativas restantes: <span id="tentativasRestantes">6</span></h4>
                     </div>
                 </div>
             </div>
         </div>
-
-        <!-- Coluna com o ranking -->
         <div class="col-md-4">
             <div class="card">
                 <div class="card-header">Top 10 Melhores Jogadores</div>
@@ -70,9 +57,8 @@
     </div>
 </div>
 
-<!-- Script com lógica do jogo -->
 <script>
-    let palavra = '[[${palavra.palavra}]]';  // Palavra aleatória vinda do backend
+    let palavra = '[[${palavra.palavra}]]';
     let tentativasRestantes = 6;
     let pontuacao = 0;
     let palavraAtual = palavra.split('').map(() => '_').join(' ');
@@ -97,8 +83,6 @@
             mensagemStatus.innerHTML = 'Por favor, digite uma letra.';
             return;
         }
-
-        // Envia a letra para o backend
         fetch('/verificar-letra', {
             method: 'POST',
             headers: {
@@ -137,7 +121,7 @@
 
     function atualizarImagemForca() {
         const imagemForca = document.getElementById('imagemForca');
-        imagemForca.innerHTML = `<img src="/imagens/forca-${6 - tentativasRestantes}.png" alt="Forca" class="img-fluid" style="max-height: 250px;">`;
+        imagemForca.innerHTML = `<img src="/static/imagens/forca-${6 - tentativasRestantes}.png" alt="Forca" class="img-fluid" style="max-height: 250px;">`;
     }
 
     function finalizarJogo(vitoria) {
@@ -169,7 +153,6 @@
     window.onload = inicializarJogo;
 </script>
 
-<!-- Scripts adicionais -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
